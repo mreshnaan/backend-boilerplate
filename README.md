@@ -171,7 +171,23 @@ The project is configured with the following Jest settings:
 
 ### Writing Tests
 
-Place your test files alongside your source files or in a `__tests__` directory. Example test file structure:
+You can organize your test files in several ways. The Jest configuration will find test files anywhere within the `src` directory that match the patterns `*.test.ts` or `*.spec.ts`.
+
+**Option 1: Centralized test folder (Current setup):**
+
+```
+src/
+  test/
+    user.controller.test.ts
+    user.service.test.ts
+    auth.controller.spec.ts
+  controllers/
+    user.controller.ts
+  services/
+    user.service.ts
+```
+
+**Option 2: Co-located with source files:**
 
 ```
 src/
@@ -182,6 +198,22 @@ src/
     user.service.ts
     user.service.spec.ts
 ```
+
+**Option 3: Mixed approach:**
+
+```
+src/
+  test/
+    integration/
+      api.integration.test.ts
+    unit/
+      utils.unit.test.ts
+  controllers/
+    user.controller.ts
+    user.controller.test.ts
+```
+
+All approaches work with the current Jest configuration. Choose the one that best fits your project's organization preferences.
 
 ## Additional Scripts
 
