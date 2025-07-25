@@ -22,6 +22,7 @@ The playground is a tool for testing and experimenting with the API endpoints di
     ```bash
     npm run playground <filename>.ts
     ```
+
     To run a specific file in the playground, use the command `npm run playground <filename>.ts`. To run the default playground script (index.ts), use `npm run playground`.
 
 ## Swagger Documentation
@@ -53,22 +54,59 @@ Follow these steps to start the backend API project:
     ```bash
     npm install
     ```
+
     This command installs all the necessary dependencies listed in `package.json`.
 
 2.  **Set up Environment Variables:**
     Create a `.env` file in the project root directory if it doesn't exist. Copy the contents from `.env.example` and modify the variables as needed, such as database connection details, API keys, etc.
 
-3.  **Run Database Migrations (if necessary):**
-    If your project uses Prisma and requires database migrations, run the following commands to push the schema to the database:
+3.  **Database Setup with Prisma:**
+    This project uses Prisma as the ORM for database management. Follow these steps to set up your database:
+
+    **a. Generate Prisma Client:**
+    First, generate the Prisma client based on your schema:
 
     ```bash
-    npm run prisma:push
+    npm run prisma:generate
     ```
-    Or to reset the database and push:
+
+    **b. Database Migration Options:**
+    Choose one of the following options based on your needs:
+
+    - **Push Schema to Database (Development):**
+      Use this for development when you want to sync your Prisma schema with the database:
+
+      ```bash
+      npm run prisma:push
+      ```
+
+    - **Reset Database (Fresh Start):**
+      Use this to reset your database and apply the schema (⚠️ **Warning: This will delete all existing data**):
+
+      ```bash
+      npm run prisma:reset-db
+      ```
+
+    - **Pull Schema from Existing Database:**
+      If you have an existing database and want to generate a Prisma schema from it:
+      ```bash
+      npm run prisma:pull
+      ```
+
+    **c. Optional - Prisma Studio (Database GUI):**
+    You can use Prisma Studio to view and edit your database data through a web interface:
+
     ```bash
-    npm run prisma:reset-db
+    npm run prisma:studio
     ```
-    Refer to the Prisma documentation and your project's setup for specific migration instructions.
+
+    This will open Prisma Studio in your browser, typically at `http://localhost:5555`.
+
+    **Database Setup Workflow:**
+
+    - For new projects: `npm run prisma:generate` → `npm run prisma:push`
+    - For existing databases: `npm run prisma:pull` → `npm run prisma:generate`
+    - For development resets: `npm run prisma:reset-db` → `npm run prisma:generate`
 
 4.  **Build the Project (for production):**
     If you are running the project in a production environment or need to build the TypeScript code, run:
@@ -76,6 +114,7 @@ Follow these steps to start the backend API project:
     ```bash
     npm run build
     ```
+
     This command compiles the TypeScript code into JavaScript files in the `dist` directory.
 
 5.  **Start the Server:**
@@ -83,6 +122,7 @@ Follow these steps to start the backend API project:
 
     - **For Development:**
       Use `nodemon` to start the server with automatic restarts on file changes:
+
       ```bash
       npm run dev
       ```
@@ -100,6 +140,33 @@ Follow these steps to start the backend API project:
 6.  **Access the API:**
     Once the server is running, you can access the API endpoints using tools like Postman, curl, or directly from your application. The base URL is typically `http://localhost:3000`, but it might be different based on your configuration.
 
+## Additional Scripts
+
+The project includes several additional utility scripts:
+
+- **Testing:**
+
+  ```bash
+  npm test                # Run tests
+  npm run test:debug      # Run tests with debug information
+  ```
+
+- **Code Quality:**
+
+  ```bash
+  npm run lint            # Check code for linting errors
+  npm run lint:fix        # Automatically fix linting errors
+  ```
+
+- **Database Management:**
+  ```bash
+  npm run prisma:studio   # Open Prisma Studio (database GUI)
+  npm run prisma:generate # Generate Prisma client
+  npm run prisma:push     # Push schema changes to database
+  npm run prisma:pull     # Pull schema from existing database
+  npm run prisma:reset-db # Reset database (⚠️ Deletes all data)
+  ```
+
 ---
 
-**Note:** This README provides general instructions. Refer to the project's specific documentation and configuration files for detailed setup and usage information.
+**Note:** This README provides general instructions. Refer to the project's specific documentation and configuration files for detailed setup and usage information. Make sure your database connection string is properly configured in your `.env` file before running Prisma commands.
