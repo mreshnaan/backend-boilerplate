@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This document provides instructions on how to use the POS System API, including how to run the playground, access the Swagger documentation, and start the project.
+This document provides instructions on how to use the backend API, including how to run the playground, access the Swagger documentation, and start the project.
 
 ## Table of Contents
 
@@ -45,7 +45,7 @@ Swagger is used to generate interactive API documentation, making it easy to und
 
 ## Starting the Project
 
-Follow these steps to start the POS System API project:
+Follow these steps to start the backend API project:
 
 1.  **Install Dependencies:**
     Navigate to the project root directory in your terminal and run:
