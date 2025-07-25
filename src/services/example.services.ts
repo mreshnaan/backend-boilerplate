@@ -4,8 +4,34 @@ import { NotFoundError, BadRequestError } from '@/helpers/api-errors';
 
 const prisma = new PrismaClient();
 
+interface CreateData {
+  name: string;
+  description: string;
+}
+
+interface UpdateData {
+  name?: string;
+  description?: string;
+}
+
+interface ListFilters {
+  page?: number;
+  limit?: number;
+  name?: string;
+  description?: string;
+}
+
+interface WhereClause {
+  name?: {
+    contains: string;
+  };
+  description?: {
+    contains: string;
+  };
+}
+
 export class ExampleService {
-  async create(data: { name: string; description: string }) {
+  async create(data: CreateData) {
     try {
       if (!data.name) {
         throw new BadRequestError('Name is required');
@@ -15,18 +41,19 @@ export class ExampleService {
       }
 
       return prisma.example.create({ data });
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error in ExampleService create:', error);
-      throw new BadRequestError(error.message);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+      throw new BadRequestError(errorMessage);
     }
   }
 
-  async getList(filters: any) {
+  async getList(filters: ListFilters) {
     try {
       const { page = 1, limit = 10, name, description } = filters;
       const skip = (page - 1) * limit;
 
-      const where: any = {};
+      const where: WhereClause = {};
       if (name) {
         where.name = { contains: name };
       }
@@ -51,9 +78,10 @@ export class ExampleService {
       };
 
       return { items, pagination };
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error in ExampleService getList:', error);
-      throw new BadRequestError(error.message);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+      throw new BadRequestError(errorMessage);
     }
   }
 
@@ -69,13 +97,14 @@ export class ExampleService {
       }
 
       return item;
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error in ExampleService getOne:', error);
-      throw new BadRequestError(error.message);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+      throw new BadRequestError(errorMessage);
     }
   }
 
-  async update(id: string, data: { name?: string; description?: string }) {
+  async update(id: string, data: UpdateData) {
     try {
       if (!id) {
         throw new BadRequestError('ID is required');
@@ -90,9 +119,10 @@ export class ExampleService {
         where: { id },
         data,
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error in ExampleService update:', error);
-      throw new BadRequestError(error.message);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+      throw new BadRequestError(errorMessage);
     }
   }
 
@@ -109,9 +139,10 @@ export class ExampleService {
 
       await prisma.example.delete({ where: { id } });
       return { message: 'Item deleted successfully' };
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error in ExampleService delete:', error);
-      throw new BadRequestError(error.message);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+      throw new BadRequestError(errorMessage);
     }
   }
 }

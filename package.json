@@ -14,8 +14,8 @@
     "prisma:push": "npx prisma db push",
     "prisma:pull": "npx prisma db pull",
     "prisma:studio": "npx prisma studio",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
+    "lint": "eslint \"**/*.{ts,js}\"",
+    "lint:fix": "eslint \"**/*.{ts,js}\" --fix",
     "prepare": "husky",
     "playground": "ts-node playground/"
   },
