@@ -58,7 +58,7 @@ app.get('/', (req: Request, res: Response) => {
       res,
       true,
       HTTP_STATUS_CODE.SUCCESS_RESPONSE_CODE,
-      { message: `hello ${date} base route pos system` },
+      { message: `hello ${date} base route` },
       MESSAGES.DATA_SUCCESS,
     );
   } catch (error: any) {

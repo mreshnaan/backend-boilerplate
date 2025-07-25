@@ -18,8 +18,8 @@ export const options = {
     ],
     tags: [
       {
-        name: 'Pos Application',
-        description: 'API related to pos system',
+        name: 'backend Application',
+        description: 'API related to backend application',
       },
     ],
     components: {
