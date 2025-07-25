@@ -1,4 +1,4 @@
-# POS System API
+# backend boilerplate
 
 ## Introduction
 
