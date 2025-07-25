@@ -140,16 +140,52 @@ Follow these steps to start the backend API project:
 6.  **Access the API:**
     Once the server is running, you can access the API endpoints using tools like Postman, curl, or directly from your application. The base URL is typically `http://localhost:3000`, but it might be different based on your configuration.
 
+## Testing
+
+This project uses Jest as the testing framework with TypeScript support. The test configuration is set up to work with path aliases and follows standard testing patterns.
+
+### Running Tests
+
+- **Run all tests:**
+
+  ```bash
+  npm test
+  ```
+
+  This runs all test files matching the patterns `*.test.ts` and `*.spec.ts` in the `src` directory.
+
+- **Run tests with debug information:**
+  ```bash
+  npm run test:debug
+  ```
+  Use this when you need to debug test issues, especially when dealing with open handles or async operations that don't close properly.
+
+### Test Configuration
+
+The project is configured with the following Jest settings:
+
+- **Test Environment:** Node.js
+- **Test Files:** `*.test.ts` and `*.spec.ts` files in the `src` directory
+- **Path Aliases:** Supports `@/` alias pointing to `src/` directory
+- **TypeScript Support:** Full TypeScript support with `ts-jest` preset
+
+### Writing Tests
+
+Place your test files alongside your source files or in a `__tests__` directory. Example test file structure:
+
+```
+src/
+  controllers/
+    user.controller.ts
+    user.controller.test.ts
+  services/
+    user.service.ts
+    user.service.spec.ts
+```
+
 ## Additional Scripts
 
 The project includes several additional utility scripts:
-
-- **Testing:**
-
-  ```bash
-  npm test                # Run tests
-  npm run test:debug      # Run tests with debug information
-  ```
 
 - **Code Quality:**
 
@@ -159,12 +195,21 @@ The project includes several additional utility scripts:
   ```
 
 - **Database Management:**
+
   ```bash
   npm run prisma:studio   # Open Prisma Studio (database GUI)
   npm run prisma:generate # Generate Prisma client
   npm run prisma:push     # Push schema changes to database
   npm run prisma:pull     # Pull schema from existing database
   npm run prisma:reset-db # Reset database (⚠️ Deletes all data)
+  ```
+
+- **Development Tools:**
+  ```bash
+  npm run playground      # Run playground scripts for testing API endpoints
+  npm run build           # Compile TypeScript to JavaScript
+  npm run dev             # Start development server with auto-reload
+  npm start               # Start production server
   ```
 
 ---
