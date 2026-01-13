@@ -13,6 +13,15 @@ interface Config {
   log: {
     level: string;
   };
+  auth:{
+    jwt:{
+      secret:string,
+      expiresIn:string
+    },
+    password:{
+      saltRounds:number
+    }
+  }
 }
 
 const config: Config = {
@@ -26,6 +35,15 @@ const config: Config = {
   log: {
     level: process.env.LOG_LEVEL || 'info',
   },
+  auth:{
+    jwt:{
+      secret:process.env.JWT_SECRET || 'new-secret-4ghxHZVdhsa',
+      expiresIn:process.env.JWT_EXPIRES_IN|| '1h'
+    },
+    password:{
+      saltRounds:parseInt(process.env.PASSWORD_SALT_ROUNDS || '10', 10)
+    }
+  }
 };
 
 export default config;
